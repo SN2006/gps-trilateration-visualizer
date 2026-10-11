@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Візуалізація вимірювань GPS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+    <header class="page-header">
+      <div>
+        <p class="eyebrow">Лабораторно-практичне заняття №3</p>
+        <h1>Візуалізація вимірювань GPS</h1>
+        <p class="subtitle">Порівняння аналітичного та чисельного розрахунків положення об’єкта</p>
+      </div>
+      <div id="connectionStatus" class="status status--offline">Не підключено</div>
+    </header>
+
+    <section class="panel controls">
+      <div class="control-group">
+        <label for="spreadInput">Допустимий розкид receivedAt, мс</label>
+        <input id="spreadInput" type="number" min="1" step="1" value="1000">
+        <button id="reconnectButton" type="button">Перепідключитися</button>
+      </div>
+      <p class="hint">
+        Розрахунок виконується лише для трьох актуальних вимірювань, якщо їхній часовий розкид не перевищує поріг.
+      </p>
+    </section>
+
+    <section class="layout">
+      <div class="panel chart-panel">
+        <div class="panel-heading">
+          <div>
+            <h2>Положення супутників та об’єкта</h2>
+            <p id="chartMessage" class="muted">Очікування даних від емулятора</p>
+          </div>
+          <div class="legend" aria-label="Легенда графіка">
+            <span><i class="legend-dot satellite"></i>Супутники</span>
+            <span><i class="legend-dot analytical"></i>Аналітичний метод</span>
+            <span><i class="legend-dot numerical"></i>Чисельний метод</span>
+          </div>
+        </div>
+        <div class="canvas-wrap">
+          <canvas id="plot" width="900" height="620" aria-label="Графік координат GPS"></canvas>
+        </div>
+      </div>
+
+      <aside class="panel data-panel">
+        <h2>Стан розрахунку</h2>
+        <dl class="metrics">
+          <div><dt>Актуальні супутники</dt><dd id="satelliteCount">0 / 3</dd></div>
+          <div><dt>Розкид часу</dt><dd id="spreadValue">Немає даних</dd></div>
+          <div><dt>Останнє оновлення</dt><dd id="updatedValue">Немає даних</dd></div>
+          <div><dt>Втрата чисельного методу</dt><dd id="lossValue">Немає даних</dd></div>
+        </dl>
+
+        <h3>Координати об’єкта</h3>
+        <div class="coordinates">
+          <div class="coordinate-card analytical-card">
+            <span>Аналітичний метод</span>
+            <strong id="analyticalPosition">Немає даних</strong>
+          </div>
+          <div class="coordinate-card numerical-card">
+            <span>Чисельний метод</span>
+            <strong id="numericalPosition">Немає даних</strong>
+          </div>
+        </div>
+
+        <h3>Кількісне порівняння</h3>
+        <div class="comparison-table">
+          <div class="comparison-row comparison-row--header">
+            <span>Показник</span>
+            <span>Аналітичний</span>
+            <span>Чисельний</span>
+          </div>
+          <div class="comparison-row">
+            <span>Вибірок</span>
+            <strong id="analyticalSamples">0</strong>
+            <strong id="numericalSamples">0</strong>
+          </div>
+          <div class="comparison-row">
+            <span>Середній крок</span>
+            <strong id="analyticalAverageStep">Немає даних</strong>
+            <strong id="numericalAverageStep">Немає даних</strong>
+          </div>
+          <div class="comparison-row">
+            <span>Максимальний крок</span>
+            <strong id="analyticalMaximumStep">Немає даних</strong>
+            <strong id="numericalMaximumStep">Немає даних</strong>
+          </div>
+        </div>
+        <p id="statisticsPeriod" class="muted statistics-period">Період спостереження: немає даних</p>
+
+        <h3>Повідомлення</h3>
+        <p id="message" class="message" role="status">Запустіть емулятор GPS та відкрийте сторінку.</p>
+      </aside>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

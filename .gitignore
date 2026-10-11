@@ -1,0 +1,29 @@
+# Файли IDE
+.idea/
+.vscode/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+
+# Node.js та локальні залежності
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Тимчасові та системні файли
+*.log
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+
+# Локальні файли конфігурації
+.env
+.env.*
+!.env.example
